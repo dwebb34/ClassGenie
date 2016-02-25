@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../xsd/project_grammar.xsd"
+parent_directory="../examples"
+name="TestGenieProject">
+    <class 
+        license="license.txt"
+        name="ExampleClass" 
+        definition_template="definition.template" 
+        implementation_template="impl.template" 
+        namespace="test" 
+        language="c++"
+        output_directory="">
+        
+        <!-- opeartors -->
+        <operator type="assignment" />
+        <operator type="equals"/>
+        <operator type="not_equals"/>
+
+        <!-- private members -->
+        <member_variable type="int" name="exampleInt" scope="private"/>
+        <member_variable type="c_string" name="exampleCString"  scope="private"/>
+        <member_variable type="std_string" name="exampleStdString"  scope="private"/>
+        
+        <!-- public functions -->
+        <function scope="public" />
+    </class>
+    <class 
+        name="ExampleInheritance" 
+        definition_template="definition.template" 
+        implementation_template="impl.template" 
+        namespace="test" 
+        language="c++" >
+    
+        <!-- optionals -->
+        <operator type="assignment" />
+
+        <!-- member variables -->
+        <member_variable type="int" name="exampleInt" scope="private"/>
+        <member_variable type="c_string" name="exampleCString" scope="private"/>
+        <member_variable type="std_string" name="exampleStdString" scope="private"/>
+        
+        <!-- base class -->
+        <base_class definition_template="baseDefinition.template" implementation_template="baseImpl.template" name="Object" namespace="std"/>
+        
+        <!-- private functions -->
+        <function scope="private" />
+    </class>
+    <build_file build_type="cmake"/>
+</project>
