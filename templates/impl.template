@@ -1,0 +1,17 @@
+#include "<class.name>.h"
+
+<class.namespace>using namespace <class.namespace>;</class.namespace>
+using namespace std;
+
+<class.name>::<class.name>(){
+}
+
+virtual <class.name>::~<class.name>(){
+}
+
+<base_class.implementation_template>
+/*******************************************************************************
+ * <base_class.name> overrides
+ ******************************************************************************/
+<base_class.implementation_template>
+</base_class.implementation_template>

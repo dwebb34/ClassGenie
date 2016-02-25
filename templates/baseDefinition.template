@@ -1,0 +1,5 @@
+/**
+ * Overrides <base_class.name>::Initialize
+ * @see <base_class.name>::Initialize
+ */
+virtual void Initialize();

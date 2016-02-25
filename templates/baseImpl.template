@@ -1,0 +1,2 @@
+virtual void <base_class.name>::Initialize(){
+}
