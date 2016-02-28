@@ -292,4 +292,13 @@ class GenieProject:
 
     def __str__(self):
         retVal = "GenieProject"
+        retVal += "   " + self.name
+        retVal += "   " + self.parent_directory
+        
+        for gClass in self.classes:
+            retVal += "   " + str(gClass)
+            
+        for build in self.build_files:
+            retVal += "   " + str(build)
+            
         return retVal

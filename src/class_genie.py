@@ -14,7 +14,7 @@ def import_args():
 
     parser = argparse.ArgumentParser(description=description)
 
-    parser.add_argument('--config_file', dest='config', action='store',
+    parser.add_argument('--config_file', dest='config', action='store', required='True',
                         help='Config file that sets necessary class definition'
                         'parameters. If a configuration item is present in both')
     parser.add_argument('--version', action='version',
@@ -39,10 +39,18 @@ def start():
     
     from genie_classes import GenieProject
     from genie_writers import write_genie_project as write_
+    import os
     
     args = import_args()
     
-    print(args)
+    pathToConfig = args['config']
+    
+    if (not os.path.isfile(pathToConfig)):
+        '''might be a relative path'''
+        pathToConfig = os.path.abspath(pathToConfig)
+        if (not os.path.isfile(pathToConfig)):
+            print("didn't find path...")
+            print("do something...")
 
     genie = GenieProject()
     genie.prepare(args['config'])
