@@ -4,10 +4,15 @@
 templateTags = {
     'class.name' : '<class.name>',
     'CLASS.NAME' : '<CLASS.NAME>',
-    'class.block' : '<class.name>.*</class.name>',
-    #'' : '',
-    #'' : '',
-    #'' : '',
+    #'class.block' : '<class.name>.*</class.name>',
+    'base.class' : '<base_class>',
+    'base.class.block' : '<base_class>.*</base_class>',
+    'base.class.def.block' : '<base_class.definition_template>.*</base_class.definition_template>',
+    'base.class.def' : '<base_class.definition_template>',
+    #
+    'member.variable.block' : '<member_variable>.*</member_variable>',
+    'member.variable' : '<member_variable>',
+    'member.variable.type' : '<member_variable.type>'
 }
 
 def write_genie_project(project):
@@ -26,7 +31,7 @@ def write_genie_project(project):
     for gClass in project.classes:
         write_genie_class(projectDir, gClass)
     
-    return
+    return True
 
 def write_genie_class(parentDir, gClass):
     '''
@@ -66,7 +71,7 @@ def write_genie_class(parentDir, gClass):
     with open(defOutFile, "w") as f:
         f.write(defTemplate)
     
-    return
+    return True
 
 def read_template(fileName):
     import os
@@ -92,10 +97,30 @@ def replace_class_tags(gClass, template):
     
     :param gClass GenieClass: class data
     :param template string: template as a string
-    :return string: template with tags replaced with real values
+    :return string: template string, tags replaced with real values
     '''
     
     template = template.replace(templateTags['class.name'], gClass.name)
     
     template = template.replace(templateTags['CLASS.NAME'], gClass.name.upper())
+    return template
+
+def replace_base_class_block(gClass, template):
+    
+    return template
+
+def replace_base_class(gClass, template):
+    
+    template = template.replace(templateTags['base_class'], gClass.name)
+    
+    return template
+
+def replace_mem_var(gClass, template):
+    
+    
+    
+    return template
+
+def replace_mem_var_blocks(gClass, template):
+    
     return template
