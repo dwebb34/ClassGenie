@@ -1,36 +1,38 @@
 <license>
-#ifndef <CLASS.NAME>_H_
-#define <CLASS.NAME>_H_
 
-<base_class>#include "<base_class>.h"</base_class>
+<system-includes>
 
-<type name="string">#include <string></type>
-<operator name="output_stream">#include <ostream></operator>
-<operator name="input_stream">#include <istream></operator>
+<base-class-includes>
 
-class <class.name>{
+<project-includes>
+
+<namespace>{
+
+<class>{
 
 public:
-    <class.name>();
-    virtual ~<class.name>();
+    <default-constructor>
+    <default-destructor>
 
-    <operator name="equals">bool operator==();</operator>
-    <operator name="notEquals">bool operator!=();</operator>
+    <equals-operator>
+    <not-equals-operator>
 
-    <base_class.definition_template>
-    <base_class.definition_template>
-    </base_class.definition_template>
+    /**
+     * Base Class Overrides
+     */
+    <base-classes>
 
-    <member_variable>void <member_variable>(){ return <member_variable>; }</member_variable>
-    <member_variable><type> set<PrivateMember>(<type> val){ <member_variable> = val; }</member_variable>
+    <public-functions>
 
 private:
-    <class.name>(const <class.name>& other);
-    <operator name="assignment"><class.name>& <class.name>::operator=(const <class.name>& rhs);</operator>
+    <copy-constructor>
+    <assignment-operator>
 
-    <member_variable><member_variable.type> m_<member_variable>;</member_variable>
+    <private-functions>
+
+    <member-variables>
 };
 
-<operator name="ostream">std::ostream& operator<<(std::ostream& os, const <class.name>& rhs );</operator>
+}
 
-#endif <CLASS.NAME>_H_
+<output-operator>
