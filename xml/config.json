@@ -1,14 +1,14 @@
 {
     "project-name":"TestGenPyProject",
-    "project-license":"license.txt",
+    "default-license":"license.txt",
     "project-directory":"",
     "template-location":"../templates",
     "default-definition-template":"definition.template",
     "default-implementation-template":"impl.template",
     "default-namespace":"test",
     "language":"c++",
-    "classes":[
-        {
+    "classes":{
+        "ExampleClass":{
             "name":"ExampleClass",
             "definition-template":"",
             "implementation-template":"",
@@ -16,76 +16,78 @@
             "namespace":"",
             "subdirectory":"",
             "base-classes":[],
-            "system-includes":["string"],
+            "system-includes":[],
             "dependencies":[],
             "default-constructor":true,
             "default-destructor":true,
             "copy-constructor":true,
-            "destructor-variables":["exampleCString"],
+            "destructor-variables":[],
             "assignment-operator":true,
             "equals-operator":true,
             "not-equals-operator":true,
             "output-operator":false,
             "input-operator":false,
-            "member-variables":[
-                {
+            "member-variables":{
+                "exampleInt":{
                     "name":"exampleInt",
                     "scope":"private",
                     "type":"integer",
                     "access-function":false,
                     "default-value":"0"
                 },
-                {
+                "exampleCString":{
                     "name":"exampleCString",
                     "scope":"private",
                     "type":"c_string",
                     "access-function":false,
                     "default-value":""
                 },
-                {
+                "exampleStdString":{
                     "name":"exampleStdString",
                     "scope":"private",
                     "type":"std_string",
                     "access-function":true,
                     "default-value":"this is a string"
                 }
-            ],
-            "functions":[
-                {
+            },
+            "functions":{
+                "examplePrivateFunction":{
                     "name":"examplePrivateFunction",
                     "documentation":false,
                     "scope":"private",
                     "return-type":"integer",
-                    "parameters":[
-                        {
+                    "parameters":{
+                        "param1":{
                             "name":"param1",
                             "type":"integer",
+                            "default-value":"0"
+                        },
+                        "param1":{
+                            "name":"param2",
+                            "type":"string",
                             "default-value":""
                         }
-                    ]
+                    }
                 },
-                {
+                "examplePublicFunction":{
                     "name":"examplePublicFunction",
                     "documentation":true,
                     "scope":"public",
                     "return-type":"void",
-                    "parameters":[
-                        {
+                    "parameters":{
+                        "param1":{
                             "name":"param1",
                             "type":"double",
                             "default-value":"0"
                         },
-                        {
+                        "param2":{
                             "name":"param2",
                             "type":"bool",
                             "default-value":"false"
                         }
-                    ]
+                    }
                 }
-            ]
-        },
-        {}
-        
-    ]
-    
+            }
+        }
+    }
 }

@@ -37,8 +37,8 @@ def import_args():
 
 def start():
     
-    from genie_classes import GenieProject
-    from genie_writers import write_genie_project as write_
+    from genie_classes import GenProject, GenClass
+    #from genie_writers import write_genie_project as write_
     import os
     
     args = import_args()
@@ -52,9 +52,27 @@ def start():
             print("didn't find path...")
             print("do something...")
 
-    genie = GenieProject()
-    genie.prepare(args['config'])
-    write_(genie)
+    project = GenProject()
+    project.config =args['config']
+    project.import_config()
+    
+    project.project_directory("/home/dwebb/workspace/ClassGenie/examples/test")
+    project.project_name("TestProject")
+    
+    genClass = GenClass()
+    genClass.name("TestClass")
+    genClass.subdirectory("TestClass")
+    genClass.default_constructor(True)
+    genClass.default_destructor(True)
+    genClass.copy_constructor(False)
+    genClass.assignment_operator(False)
+    genClass.equals_operator(False)
+    genClass.not_equals_operator(False)
+    
+    project.add_class(genClass)
+    
+    print (project)
+    #write_(genie)
     
     return
 

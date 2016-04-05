@@ -33,6 +33,6 @@ private:
     <member-variables>
 };
 
-}
-
 <output-operator>
+
+}

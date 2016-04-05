@@ -35,7 +35,7 @@ def write_genie_project(project):
 
 def write_genie_class(parentDir, gClass):
     '''
-    :param project GenieClass: metadata class being written to file.
+    :param project GenClass: metadata class being written to file.
     :return boolean: true if everything was created correctly, false otherwise.
     '''
     import os
