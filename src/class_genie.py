@@ -52,24 +52,27 @@ def start():
             print("didn't find path...")
             print("do something...")
 
-    project = GenProject()
-    project.config =args['config']
-    project.import_config()
+    project = GenProject(args['config'])
+    #project.config =
+    #project.import_config()
     
-    project.project_directory("/home/dwebb/workspace/ClassGenie/examples/test")
-    project.project_name("TestProject")
+    project.project_directory = "/home/dwebb/workspace/ClassGenie/examples/test"
+    project.project_name = "TestProject"
+    
+    print (project.project_name)
+    
     
     genClass = GenClass()
-    genClass.name("TestClass")
-    genClass.subdirectory("TestClass")
-    genClass.default_constructor(True)
-    genClass.default_destructor(True)
-    genClass.copy_constructor(False)
-    genClass.assignment_operator(False)
-    genClass.equals_operator(False)
-    genClass.not_equals_operator(False)
+    genClass.name = "TestClass"
+    genClass.subdirectory = "TestClass"
+    genClass.default_constructor = True
+    genClass.default_destructor = True
+    genClass.copy_constructor = False
+    genClass.assignment_operator = False
+    genClass.equals_operator = False
+    genClass.not_equals_operator = False
     
-    project.add_class(genClass)
+    project.gen_class = genClass
     
     print (project)
     #write_(genie)
