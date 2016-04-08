@@ -1,8 +1,12 @@
 '''
 :module genie_classes:
 Contains all the classes that encapsulate the C++ objects. Each class
-correlates to the project_grammar xml schema and provides funcionality for parsing
-the appropriate tags.
+correlates to the project_grammar json config file and provides funcionality for 
+parsing the appropriate tags.
+
+This is basically a set of wrapper classes for the data dictionary defining our
+classes. You could create your own dictionary, populate it correctly, and hand
+it to the writers, but these classes should make it a lot cleaner.
 
 :author: Devin Webb
 :email: devin.a.webb@gmail.com
@@ -281,7 +285,7 @@ class GenClass:
         
     @definition_template.setter
     def definition_template(self, defTemplate):
-        self.data_dictioanry["definition-template"] = defTemplate
+        self.data_dictionary["definition-template"] = defTemplate
         return
     
     @property
@@ -614,7 +618,16 @@ class GenProject:
     
     @property
     def gen_class(self):
-        return self.data_dictionary["classes"]
+        '''
+        :return list GenClass: list of GenClass objects
+        '''
+        retVal = []
+        for key, classDict in self.data_dictionary["classes"].items():
+            newClass = GenClass()
+            newClass.data_dictionary = classDict
+            retVal.append(newClass)
+        
+        return retVal
     
     @gen_class.setter
     def gen_class(self, newClass):
@@ -628,8 +641,12 @@ class GenProject:
         if not isinstance(newClass, GenClass):
             raise TypeError('newClass must of type GenClass')
 
-        print("HERE")
-        self.data_dictionary["classes"][newClass.name] = newClass.data_dictionary
+        #check that default values propogate to the class when an override isn't provided.
+        if not newClass.definition_template:
+            newClass.definition_template = self.default_definition_template
+        
+        
+        self.data_dictionary["classes"][newClass.class_name] = newClass.data_dictionary
             
         return
     

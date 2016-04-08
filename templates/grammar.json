@@ -1,3 +1,31 @@
 {
-    "name": "webbda"
+    "shared":{
+        "<class>":"<class.name>",
+        "<license>":"<license>",
+        "<system-includes>":"#include <<system-includes>>",
+        "<base-class-includes>":"#include \"<base-class-includes>\"",
+        "<project-includes>":"#include \"<project-includes>\"",
+        "<base-classes>":"<base-classes>",
+        "<public-functions>":"<public-functions>",
+        "<private-functions>":"<private-functions>",
+        "<member-variables>":"<member-variables>"
+    },
+    "definition":{
+        "namespace":"namespace <namespace>",
+        "<default-constructor>":"<class.name>();",
+        "<default-destructor>":"virtual ~<class.name>();",
+        "<copy-constructor>":"<class.name>(const <class.name>& rhs);"
+    },
+    "implmentation":{
+        "namespace":"using namespace <namespace>",
+        "<default-constructor>":"<class.name>::<class.name>():<member-variables.default-value>{\n<custom-code>\n}",
+        "<default-destructor>":"virtual <class.name>::~<class.name>(){\n<custom-code>\n}",
+        "<copy-constructor>":"<class.name>::<class.name>(const <class.name>& rhs){\n<custom-code>\n}"
+    },
+
+    "<assignment-operator>":"<class.name>& operator=(const <class.name>& rhs)",
+    "<equals-operator>":"<class.name>& operator==(const <class.name>& rhs);",
+    "<not-equals-operator>":"<class.name>& operator!=(const <class.name>& rhs);",
+    "<output-operator>":""
+        
 }

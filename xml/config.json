@@ -67,7 +67,8 @@
                             "type":"string",
                             "default-value":""
                         }
-                    }
+                    },
+                    "custom-code":""
                 },
                 "examplePublicFunction":{
                     "name":"examplePublicFunction",
@@ -85,7 +86,8 @@
                             "type":"bool",
                             "default-value":"false"
                         }
-                    }
+                    },
+                    "custom-code":""
                 }
             }
         }

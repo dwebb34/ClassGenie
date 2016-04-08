@@ -38,7 +38,7 @@ def import_args():
 def start():
     
     from genie_classes import GenProject, GenClass
-    #from genie_writers import write_genie_project as write_
+    from genie_writers import write_project as write_
     import os
     
     args = import_args()
@@ -74,8 +74,8 @@ def start():
     
     project.gen_class = genClass
     
-    print (project)
-    #write_(genie)
+    #print (project)
+    write_(project)
     
     return
 
