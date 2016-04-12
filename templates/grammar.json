@@ -18,7 +18,11 @@
     },
     "implmentation":{
         "namespace":"using namespace <namespace>",
-        "<default-constructor>":"<class.name>::<class.name>():<member-variables.default-value>{\n<custom-code>\n}",
+        "<default-constructor>":[
+            "<class.name>::<class.name>():<member-variables.default-value>{",
+            "   <custom-code>",
+            "}"
+            ],
         "<default-destructor>":"virtual <class.name>::~<class.name>(){\n<custom-code>\n}",
         "<copy-constructor>":"<class.name>::<class.name>(const <class.name>& rhs){\n<custom-code>\n}"
     },
