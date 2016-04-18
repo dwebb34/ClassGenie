@@ -18,15 +18,38 @@
             "base-classes":[],
             "system-includes":[],
             "dependencies":[],
-            "default-constructor":true,
-            "default-destructor":true,
-            "copy-constructor":true,
-            "destructor-variables":[],
-            "assignment-operator":true,
-            "equals-operator":true,
-            "not-equals-operator":true,
-            "output-operator":false,
-            "input-operator":false,
+            "default-constructor":{
+                "generate":true,
+                "custom-code":[]
+            },
+            "default-destructor":{
+                "generate":true,
+                "custom-code":[]
+            },
+            "copy-constructor":{
+                "generate":true,
+                "custom-code":[]
+            },
+            "assignment-operator":{
+                "generate":true,
+                "custom-code":[]
+            },
+            "equals-operator":{
+                "generate":false,
+                "custom-code":[]
+            },
+            "not-equals-operator":{
+                "generate":false,
+                "custom-code":[]
+            },
+            "output-operator":{
+                "generate":false,
+                "custom-code":[]
+            },
+            "input-operator":{
+                "generate":false,
+                "custom-code":[]
+            },
             "member-variables":{
                 "exampleInt":{
                     "name":"exampleInt",
@@ -68,7 +91,7 @@
                             "default-value":""
                         }
                     },
-                    "custom-code":""
+                    "custom-code":[]
                 },
                 "examplePublicFunction":{
                     "name":"examplePublicFunction",
@@ -87,7 +110,7 @@
                             "default-value":"false"
                         }
                     },
-                    "custom-code":""
+                    "custom-code":[]
                 }
             }
         }

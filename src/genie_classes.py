@@ -166,6 +166,59 @@ class MemberVariable:
         retVal = json.dumps(self.data_dictionary, indent=4, sort_keys=True)
         return retVal
 
+
+class MemberFunction:
+    
+    @property
+    def custom_code(self):
+        return self.data_dictionary("custom-code")
+    
+    @custom_code.setter
+    def custom_code(self, code):
+        '''
+        Custom code for this member function. Given code will overwrite existing code.
+        Each string in the list is one line of code. Do not give the function
+        definition. The code is everything between opening and closing brackets
+        
+        {
+           custom code
+        }
+        
+        This does not check for the validity of the code given.
+        
+        :param code list: list of strings to use as custom code in this member function
+        '''
+        if not isinstance(code, basestring):
+            self.data_dictionary["custom-code"] = code
+        else:
+            raise TypeError("Code must be a list of strings. Each string is 1 line of code.")
+                
+        return
+    
+    @property
+    def generate(self):
+        return self.data_dictionary["generate"]
+    
+    @generate.setter
+    def generate(self, gen=False):
+        
+        strVal = "true" if gen else "false"
+        
+        self.data_dictionary["generate"] = strVal
+        return
+    
+    def __init__(self):
+        self.data_dictionary = {
+                        "generate":"false",
+                        "custom-code":[]
+                    }
+        return
+    
+    def __str__(self):
+        import json
+        retVal = json.dumps(self.data_dictionary, indent=4, sort_keys=True)
+        return retVal
+    
 class Function:
     '''
     Function represents a C/C++ function, complete with scope, return type,
@@ -358,53 +411,98 @@ class GenClass:
     
     @property
     def default_constructor(self):
+        retVal = MemberVariable()
+        retVal.data_dictionary = self.data_dictionary["default-constructor"]
+        return retVal
+    
+    def default_constructor_as_dict(self):
         return self.data_dictionary["default-constructor"]
     
     @default_constructor.setter
-    def default_constructor(self, provideDefault = True):
-        val = "true" if provideDefault else "false"
-        self.data_dictionary["default-constructor"] = val
+    def default_constructor(self, memFunc):
+        if isinstance(memFunc, MemberVariable):
+            self.data_dictionary["default-constructor"] = memFunc.data_dictionary
+        elif isinstance(memFunc, dict):
+            #avoids putting unacceptable values into the data dictionary
+            if "generate" in memFunc:
+                self.data_dictionary["default-constructor"]["generate"] = memFunc["generate"]
+            
+            if "custom-code" in memFunc:
+                self.data_dictionary["default-constructor"]["custom-code"] = memFunc["custom-code"]
+        else:
+            raise TypeError("memFunc must be type MemberVariable or a data dictionary")
         return
     
     @property
     def default_destructor(self):
+        retVal = MemberVariable()
+        retVal.data_dictionary = self.data_dictionary["default-destructor"]
+        return retVal
+    
+    def default_destructor_as_dict(self):
         return self.data_dictionary["default-destructor"]
     
     @default_destructor.setter
-    def default_destructor(self, provideDefault = True):
-        val = "true" if provideDefault else "false"
-        self.data_dictionary["default-destructor"] = val
-        return
-    
-    @property
-    def destructor_variable(self):
-        return self.data_dictionary["destructor-variables"]
-    
-    @destructor_variable.setter
-    def destructor_variable(self, destructorVar):        
-        #if param is already in the data_dictionary, don't put another one
-        if destructorVar not in self.data_dictionary["destructor-variables"]:
-            self.data_dictionary["destructor-variables"].append(destructorVar)
+    def default_destructor(self, memFunc):
+        if isinstance(memFunc, MemberVariable):
+            self.data_dictionary["default-destructor"] = memFunc.data_dictionary
+        elif isinstance(memFunc, dict):
+            #avoids putting unacceptable values into the data dictionary
+            if "generate" in memFunc:
+                self.data_dictionary["default-destructor"]["generate"] = memFunc["generate"]
+            
+            if "custom-code" in memFunc:
+                self.data_dictionary["default-destructor"]["custom-code"] = memFunc["custom-code"]
+        else:
+            raise TypeError("memFunc must be type MemberVariable or a data dictionary")
         return
     
     @property
     def copy_constructor(self):
+        retVal = MemberVariable()
+        retVal.data_dictionary = self.data_dictionary["copy-constructor"]
+        return retVal
+    
+    def copy_constructor_as_dict(self):
         return self.data_dictionary["copy-constructor"]
     
     @copy_constructor.setter
-    def copy_constructor(self, provideDefault = True):
-        val = "true" if provideDefault else "false"
-        self.data_dictionary["copy-constructor"] = val
+    def copy_constructor(self, memFunc):
+        if isinstance(memFunc, MemberVariable):
+            self.data_dictionary["copy-constructor"] = memFunc.data_dictionary
+        elif isinstance(memFunc, dict):
+            #avoids putting unacceptable values into the data dictionary
+            if "generate" in memFunc:
+                self.data_dictionary["copy-constructor"]["generate"] = memFunc["generate"]
+            
+            if "custom-code" in memFunc:
+                self.data_dictionary["copy-constructor"]["custom-code"] = memFunc["custom-code"]
+        else:
+            raise TypeError("memFunc must be type MemberVariable or a data dictionary")
         return
     
     @property
     def assignment_operator(self):
+        retVal = MemberVariable()
+        retVal.data_dictionary = self.data_dictionary["assignment-operator"]
+        return retVal
+    
+    def assignment_operator_as_dict(self):
         return self.data_dictionary["assignment-operator"]
     
     @assignment_operator.setter
-    def assignment_operator(self, provideOp = True):
-        val = "true" if provideOp else "false"
-        self.data_dictionary["assignment-operator"] = val
+    def assignment_operator(self, memFunc):
+        if isinstance(memFunc, MemberVariable):
+            self.data_dictionary["assignment-operator"] = memFunc.data_dictionary
+        elif isinstance(memFunc, dict):
+            #avoids putting unacceptable values into the data dictionary
+            if "generate" in memFunc:
+                self.data_dictionary["assignment-operator"]["generate"] = memFunc["generate"]
+            
+            if "custom-code" in memFunc:
+                self.data_dictionary["assignment-operator"]["custom-code"] = memFunc["custom-code"]
+        else:
+            raise TypeError("memFunc must be type MemberVariable or a data dictionary")
         return
     
     @property
@@ -483,15 +581,14 @@ class GenClass:
             "base-classes":[],#list of strings
             "system-includes":[],#list of strings
             "dependencies":[],#list of strings
-            "default-constructor":"true",
-            "default-destructor":"true",
-            "copy-constructor":"true",
-            "destructor-variables":[],#list of strings
-            "assignment-operator":"true",
-            "equals-operator":"true",
-            "not-equals-operator":"true",
-            "output-operator":"false",
-            "input-operator":"false",
+            "default-constructor":{},
+            "default-destructor":{},
+            "copy-constructor":{},
+            "assignment-operator":{},
+            "equals-operator":{},
+            "not-equals-operator":{},
+            "output-operator":{},
+            "input-operator":{},
             "member-variables":{},
             "functions":{}
         }
@@ -644,8 +741,13 @@ class GenProject:
         #check that default values propogate to the class when an override isn't provided.
         if not newClass.definition_template:
             newClass.definition_template = self.default_definition_template
-        
-        
+            
+        if not newClass.implementation_template:
+            newClass.implementation_template = self.default_implementation_template
+            
+        if not newClass.class_namespace:
+            newClass.class_namespace = self.default_namespace
+             
         self.data_dictionary["classes"][newClass.class_name] = newClass.data_dictionary
             
         return

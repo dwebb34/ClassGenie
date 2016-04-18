@@ -14,20 +14,31 @@
         "namespace":"namespace <namespace>",
         "<default-constructor>":"<class.name>();",
         "<default-destructor>":"virtual ~<class.name>();",
-        "<copy-constructor>":"<class.name>(const <class.name>& rhs);"
+        "<copy-constructor>":"<class.name>(const <class.name>& rhs);",
+        "<assignment-operator>":"<class.name>& operator=(const <class.name>& rhs)"
     },
     "implmentation":{
         "namespace":"using namespace <namespace>",
         "<default-constructor>":[
             "<class.name>::<class.name>():<member-variables.default-value>{",
-            "   <custom-code>",
+            "   <default-constructor.custom-code>",
             "}"
             ],
-        "<default-destructor>":"virtual <class.name>::~<class.name>(){\n<custom-code>\n}",
-        "<copy-constructor>":"<class.name>::<class.name>(const <class.name>& rhs){\n<custom-code>\n}"
+        "<default-destructor>":[
+            "virtual <class.name>::~<class.name>(){",
+            "   <default-destructor.custom-code>",
+            "}"],
+        "<copy-constructor>":[
+            "<class.name>::<class.name>(const <class.name>& rhs){",
+            "   <copy-constructor.custom-code>",
+            "}"],
+        "<assignment-operator>":[
+            "<class.name>::operator(const <class.name>& rhs){",
+            "   <assignment-operator.custon-code>",
+            "}"
+        ]
     },
 
-    "<assignment-operator>":"<class.name>& operator=(const <class.name>& rhs)",
     "<equals-operator>":"<class.name>& operator==(const <class.name>& rhs);",
     "<not-equals-operator>":"<class.name>& operator!=(const <class.name>& rhs);",
     "<output-operator>":""
