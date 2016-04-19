@@ -313,11 +313,11 @@ class GenClass:
     '''
     
     @property
-    def class_name(self):
+    def name(self):
         return self.data_dictionary["name"]
     
     @class_name.setter
-    def class_name(self,name):
+    def name(self, newName):
         '''
         Sets the name of the GenClass. dictionary["name"] = name
         Does some minimal checking for validity
@@ -326,10 +326,10 @@ class GenClass:
         :raise ValueError: if name contains whitespace
         '''
         
-        if contains_whitespace(name):
+        if contains_whitespace(newName):
             raise ValueError('name cannot contain whitespace.')
         
-        self.data_dictionary["name"] = name
+        self.data_dictionary["name"] = newName
         return
     
     @property
@@ -350,6 +350,15 @@ class GenClass:
         self.data_dictionary["implementation-template"] = implTemplate
         
     @property
+    def grammar_file(self):
+        return self.data_dictionary["grammar-file"]
+
+    @grammar_file.setter
+    def grammar_file(self, gramFile):
+        self.data_dictionary["grammar-file"] = gramFile
+        return
+        
+    @property
     def class_license(self):
         return self.data_dictioanry["class-license"]
     
@@ -359,12 +368,12 @@ class GenClass:
         return
     
     @property
-    def class_namespace(self):
+    def namespace(self):
         return self.data_dictionary["namespace"]
     
-    @class_namespace.setter
-    def class_namespace(self, namespace):
-        self.data_dictioanry["namespace"] = namespace
+    @namespace.setter
+    def namespace(self, newNamespace):
+        self.data_dictioanry["namespace"] = newNamespace
         return
     
     @property
@@ -377,33 +386,33 @@ class GenClass:
         return
     
     @property
-    def base_class(self):
+    def base_classes(self):
         return self.data_dictionary["base-classes"]
     
-    @base_class.setter
-    def base_class(self, baseClass):        
+    @base_classes.setter
+    def base_classes(self, baseClass):        
         #if baseClass is already in the data_dictionary, don't put another one
         if param not in self.data_dictionary["base-classes"]:
             self.data_dictionary["base-classes"].append(baseClass)
         return
     
     @property
-    def system_include(self):
+    def system_includes(self):
         return self.data_dictionary["system-includes"]
     
-    @system_include.setter
-    def system_include(self, include):        
+    @system_includes.setter
+    def system_includes(self, include):        
         #if baseClass is already in the data_dictionary, don't put another one
         if include not in self.data_dictionary["system-includes"]:
-            self.data_dictionary["base-classes"].append(include)
+            self.data_dictionary["system-includes"].append(include)
         return
 
     @property
-    def class_dependency(self):
+    def dependencies(self):
         return self.data_dictionary["dependencies"]
     
-    @class_dependency.setter
-    def class_dependency(self, depends):        
+    @class_dependencies.setter
+    def dependencies(self, depends):        
         #if param is already in the data_dictionary, don't put another one
         if depends not in self.data_dictionary["dependencies"]:
             self.data_dictionary["dependencies"].append(depends)
@@ -411,7 +420,10 @@ class GenClass:
     
     @property
     def default_constructor(self):
-        retVal = MemberVariable()
+        '''
+        :return MemberFunction:
+        '''
+        retVal = MemberFunction()
         retVal.data_dictionary = self.data_dictionary["default-constructor"]
         return retVal
     
@@ -420,7 +432,7 @@ class GenClass:
     
     @default_constructor.setter
     def default_constructor(self, memFunc):
-        if isinstance(memFunc, MemberVariable):
+        if isinstance(memFunc, MemberFunction):
             self.data_dictionary["default-constructor"] = memFunc.data_dictionary
         elif isinstance(memFunc, dict):
             #avoids putting unacceptable values into the data dictionary
@@ -430,12 +442,15 @@ class GenClass:
             if "custom-code" in memFunc:
                 self.data_dictionary["default-constructor"]["custom-code"] = memFunc["custom-code"]
         else:
-            raise TypeError("memFunc must be type MemberVariable or a data dictionary")
+            raise TypeError("memFunc must be type MemberFunction or a data dictionary")
         return
     
     @property
     def default_destructor(self):
-        retVal = MemberVariable()
+        '''
+        :return MemberFunction:
+        '''
+        retVal = MemberFunction()
         retVal.data_dictionary = self.data_dictionary["default-destructor"]
         return retVal
     
@@ -444,7 +459,7 @@ class GenClass:
     
     @default_destructor.setter
     def default_destructor(self, memFunc):
-        if isinstance(memFunc, MemberVariable):
+        if isinstance(memFunc, MemberFunction):
             self.data_dictionary["default-destructor"] = memFunc.data_dictionary
         elif isinstance(memFunc, dict):
             #avoids putting unacceptable values into the data dictionary
@@ -454,12 +469,15 @@ class GenClass:
             if "custom-code" in memFunc:
                 self.data_dictionary["default-destructor"]["custom-code"] = memFunc["custom-code"]
         else:
-            raise TypeError("memFunc must be type MemberVariable or a data dictionary")
+            raise TypeError("memFunc must be type MemberFunction or a data dictionary")
         return
     
     @property
     def copy_constructor(self):
-        retVal = MemberVariable()
+        '''
+        :return MemberFunction:
+        '''
+        retVal = MemberFunction()
         retVal.data_dictionary = self.data_dictionary["copy-constructor"]
         return retVal
     
@@ -468,7 +486,7 @@ class GenClass:
     
     @copy_constructor.setter
     def copy_constructor(self, memFunc):
-        if isinstance(memFunc, MemberVariable):
+        if isinstance(memFunc, MemberFunction):
             self.data_dictionary["copy-constructor"] = memFunc.data_dictionary
         elif isinstance(memFunc, dict):
             #avoids putting unacceptable values into the data dictionary
@@ -478,12 +496,15 @@ class GenClass:
             if "custom-code" in memFunc:
                 self.data_dictionary["copy-constructor"]["custom-code"] = memFunc["custom-code"]
         else:
-            raise TypeError("memFunc must be type MemberVariable or a data dictionary")
+            raise TypeError("memFunc must be type MemberFunction or a data dictionary")
         return
     
     @property
     def assignment_operator(self):
-        retVal = MemberVariable()
+        '''
+        :return MemberFunction:
+        '''
+        retVal = MemberFunction()
         retVal.data_dictionary = self.data_dictionary["assignment-operator"]
         return retVal
     
@@ -492,7 +513,7 @@ class GenClass:
     
     @assignment_operator.setter
     def assignment_operator(self, memFunc):
-        if isinstance(memFunc, MemberVariable):
+        if isinstance(memFunc, MemberFunction):
             self.data_dictionary["assignment-operator"] = memFunc.data_dictionary
         elif isinstance(memFunc, dict):
             #avoids putting unacceptable values into the data dictionary
@@ -502,71 +523,172 @@ class GenClass:
             if "custom-code" in memFunc:
                 self.data_dictionary["assignment-operator"]["custom-code"] = memFunc["custom-code"]
         else:
-            raise TypeError("memFunc must be type MemberVariable or a data dictionary")
+            raise TypeError("memFunc must be type MemberFunction or a data dictionary")
         return
     
     @property
     def equals_operator(self):
+        '''
+        :return MemberFunction:
+        '''
+        retVal = MemberFunction()
+        retVal.data_dictionary = self.data_dictionary["equals-operator"]
+        return retVal
+    
+    def equals_operator_as_dict(self):
         return self.data_dictionary["equals-operator"]
     
     @equals_operator.setter
-    def equals_operator(self, provideOp = True):
-        val = "true" if provideOp else "false"
-        self.data_dictionary["equals-operator"] = val
+    def equals_operator(self, memFunc):
+        if isinstance(memFunc, MemberFunction):
+            self.data_dictionary["equals-operator"] = memFunc.data_dictionary
+        elif isinstance(memFunc, dict):
+            #avoids putting unacceptable values into the data dictionary
+            if "generate" in memFunc:
+                self.data_dictionary["equals-operator"]["generate"] = memFunc["generate"]
+            
+            if "custom-code" in memFunc:
+                self.data_dictionary["equals-operator"]["custom-code"] = memFunc["custom-code"]
+        else:
+            raise TypeError("memFunc must be type MemberFunction or a data dictionary")
         return
     
     @property
     def not_equals_operator(self):
+        '''
+        :return MemberFunction:
+        '''
+        retVal = MemberFunction()
+        retVal.data_dictionary = self.data_dictionary["not-equals-operator"]
+        return retVal
+    
+    def not_equals_operator_as_dict(self):
         return self.data_dictionary["not-equals-operator"]
     
     @not_equals_operator.setter
-    def not_equals_operator(self, provideOp = True):
-        val = "true" if provideOp else "false"
-        self.data_dictionary["not-equals-operator"] = val
+    def not_equals_operator(self, memFunc):
+        if isinstance(memFunc, MemberFunction):
+            self.data_dictionary["not-equals-operator"] = memFunc.data_dictionary
+        elif isinstance(memFunc, dict):
+            #avoids putting unacceptable values into the data dictionary
+            if "generate" in memFunc:
+                self.data_dictionary["not-equals-operator"]["generate"] = memFunc["generate"]
+            
+            if "custom-code" in memFunc:
+                self.data_dictionary["not-equals-operator"]["custom-code"] = memFunc["custom-code"]
+        else:
+            raise TypeError("memFunc must be type MemberFunction or a data dictionary")
         return
     
     @property
     def output_operator(self):
+        '''
+        :return MemberFunction:
+        '''
+        retVal = MemberFunction()
+        retVal.data_dictionary = self.data_dictionary["output-operator"]
+        return retVal
+    
+    def output_operator_as_dict(self):
         return self.data_dictionary["output-operator"]
     
     @output_operator.setter
-    def output_operator(self, provideOp = True):
-        val = "true" if provideOp else "false"
-        self.data_dictionary["output-operator"] = val
+    def output_operator(self, memFunc):
+        if isinstance(memFunc, MemberFunction):
+            self.data_dictionary["output-operator"] = memFunc.data_dictionary
+        elif isinstance(memFunc, dict):
+            #avoids putting unacceptable values into the data dictionary
+            if "generate" in memFunc:
+                self.data_dictionary["output-operator"]["generate"] = memFunc["generate"]
+            
+            if "custom-code" in memFunc:
+                self.data_dictionary["output-operator"]["custom-code"] = memFunc["custom-code"]
+        else:
+            raise TypeError("memFunc must be type MemberFunction or a data dictionary")
         return
     
     @property
     def input_operator(self):
+        retVal = MemberFunction()
+        retVal.data_dictionary = self.data_dictionary["input-operator"]
+        return retVal
+    
+    def input_operator_as_dict(self):
         return self.data_dictionary["input-operator"]
     
     @input_operator.setter
-    def input_operator(self, provideOp = True):
-        val = "true" if provideOp else "false"
-        self.data_dictionary["input-operator"] = val
+    def input_operator(self, memFunc):
+        if isinstance(memFunc, MemberFunction):
+            self.data_dictionary["input-operator"] = memFunc.data_dictionary
+        elif isinstance(memFunc, dict):
+            #avoids putting unacceptable values into the data dictionary
+            if "generate" in memFunc:
+                self.data_dictionary["input-operator"]["generate"] = memFunc["generate"]
+            
+            if "custom-code" in memFunc:
+                self.data_dictionary["input-operator"]["custom-code"] = memFunc["custom-code"]
+        else:
+            raise TypeError("memFunc must be type MemberFunction or a data dictionary")
         return
     
     @property
-    def member_variable(self):
+    def member_variables(self):
+        '''
+        :return MemberVariable list:
+        '''
+        retVal = []
+        
+        for key, value in self.data_dictionary["member-variables"]:
+            newMember = MemberVariable()
+            newMember.data_dictionary = value
+            retVal.append(newMember)
+        
+        return retVal
+    
+    def member_variables_as_dict(self):
+        '''
+        :return MemberVariable dict:
+        '''
         return self.data_dictionary["member-variables"]
     
     @member_variable.setter
-    def member_variable(self, memVar):
-        if not isinstance(memVar, MemberVariable):
-            raise TypeError('memVar must of type MemberVariable')
-        
-        self.data_dictionary["member-variables"][memVar["name"]] = memVar
+    def member_variables(self, memVar):
+        if isinstance(memVar, MemberVariable):
+            self.data_dictionary["member-variables"][memVar["name"]] = memVar
+        elif isinstance(memVar, dict):
+            self.data_dictionar["member-variables"].update(memVar)
+        else:
+            raise TypeError('memVar must of type MemberVariable or a data dictionary')
         return
     
     @property
-    def function(self):
+    def functions(self):
+        '''
+        :return Function list:
+        '''
+        
+        retVal = []
+        for key, val in self.data_dictionary["functions"].items():
+            newFunc = Function()
+            newFunc.data_dictionary = val
+            retVal.append(newFunc)
+        
+        return retVal
+    
+    def functions_as_dict(self):
+        '''
+        :return Function dict:
+        '''
         return self.data_dictionary["functions"]
     
-    @function.setter
-    def function(self, func):
-        if not isinstance(func, Function):
-            raise TypeError('func must of type Function')
-        
-        self.data_dictionary["functions"][func["name"]] = func
+    @functions.setter
+    def functions(self, func):
+        if isinstance(func, Function):
+            self.data_dictionary["functions"][func["name"]] = func
+        elif isinstance(func, dict):
+            self.data_dictionary["functions"].update(func)
+        else:
+            raise TypeError('func must of type Function or a data dictionary')
         return
     
     
@@ -575,6 +697,7 @@ class GenClass:
             "name":"ExampleClass",
             "definition-template":"",
             "implementation-template":"",
+            "grammar-file":"",
             "class-license":"",
             "namespace":"",
             "subdirectory":"",
@@ -705,6 +828,15 @@ class GenProject:
         return
     
     @property
+    def default_grammar_file(self):
+        return self.data_dictionary["default-grammar-file"]
+    
+    @defaulr_grammar_file.setter
+    def default_grammar_file(self, gramFile):
+        self.data_dictionary["default-grammar-file"]
+        return
+    
+    @property
     def language(self):
         return self.data_dictionary["language"]
     
@@ -726,6 +858,22 @@ class GenProject:
         
         return retVal
     
+    def find_gen_class(self, name):
+        retVal = GenClass()
+        
+        if name in self.data_dictionary["classes"]:
+            retVal.data_dictionary = self.data_dictionary["classes"][name]
+        
+        return retVal
+    
+    def find_gen_class_as_dict(self, name):
+        retVal = {}
+        
+        if name in self.data_dictionary["classes"]:
+            retVal = self.data_dictionary["classes"][name]
+        
+        return retVal
+    
     @gen_class.setter
     def gen_class(self, newClass):
         '''
@@ -739,6 +887,10 @@ class GenProject:
             raise TypeError('newClass must of type GenClass')
 
         #check that default values propogate to the class when an override isn't provided.
+        #class values should take precedence
+        if not newClass.class_license:
+            newClass.class_license = self.default_license
+            
         if not newClass.definition_template:
             newClass.definition_template = self.default_definition_template
             
@@ -747,6 +899,9 @@ class GenProject:
             
         if not newClass.class_namespace:
             newClass.class_namespace = self.default_namespace
+            
+        if not newClass.grammar_file:
+            newClass.grammar_file = self.default_grammar_file
              
         self.data_dictionary["classes"][newClass.class_name] = newClass.data_dictionary
             
@@ -761,6 +916,7 @@ class GenProject:
             "default-definition-template":"definition.template",
             "default-implementation-template":"impl.template",
             "default-namespace":"test",
+            "default-grammar-file":"grammar.json",
             "language":"c++",
             "classes":{}
         }

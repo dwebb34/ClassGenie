@@ -11,11 +11,13 @@
         "<member-variables>":"<member-variables>"
     },
     "definition":{
-        "namespace":"namespace <namespace>",
+        "<namespace>":"namespace <namespace>",
         "<default-constructor>":"<class.name>();",
         "<default-destructor>":"virtual ~<class.name>();",
         "<copy-constructor>":"<class.name>(const <class.name>& rhs);",
-        "<assignment-operator>":"<class.name>& operator=(const <class.name>& rhs)"
+        "<assignment-operator>":"<class.name>& operator=(const <class.name>& rhs);",
+        "<equals-operator>":"<class.name>& operator==(const <class.name>& rhs);",
+        "<not-equals-operator>":"<class.name>& operator!=(const <class.name>& rhs);"
     },
     "implmentation":{
         "namespace":"using namespace <namespace>",
@@ -33,10 +35,18 @@
             "   <copy-constructor.custom-code>",
             "}"],
         "<assignment-operator>":[
-            "<class.name>::operator(const <class.name>& rhs){",
-            "   <assignment-operator.custon-code>",
+            "<class.name>& <class.name>::operator=(const <class.name>& rhs){",
+            "   <assignment-operator.custom-code>",
             "}"
-        ]
+        ],
+        "<equals-operator>":[
+            "<class.name>& <class.name>::operator==(const <class.name>& rhs){",
+            "   <equals-operator.custom-code>",
+            "}"],
+        "<not-equals-operator>":[
+            "<class.name>& <class.name>::operator!=(const <class.name>& rhs){",
+            "   <equals-operator.custom-code>",
+            "}"]
     },
 
     "<equals-operator>":"<class.name>& operator==(const <class.name>& rhs);",

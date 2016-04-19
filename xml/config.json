@@ -6,12 +6,14 @@
     "default-definition-template":"definition.template",
     "default-implementation-template":"impl.template",
     "default-namespace":"test",
+    "default-grammar-file":"grammar.json",
     "language":"c++",
     "classes":{
         "ExampleClass":{
             "name":"ExampleClass",
             "definition-template":"",
             "implementation-template":"",
+            "grammar-file":"grammar.json",
             "class-license":"",
             "namespace":"",
             "subdirectory":"",

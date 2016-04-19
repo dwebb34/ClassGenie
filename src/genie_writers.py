@@ -52,17 +52,27 @@ def write_class(project, gClass):
         defFile = os.path.join(templatePath, gClass.definition_template)
         defFile = os.path.abspath(defFile)
         
-    #if (gClass.implementation_template):
-    #    implFile = os.path.join(templatePath, gClass.implementation_template)
+    if gClass.grammar_file:
+        grammarFile = os.path.join(templatePath, gClass.grammar_file)
+        grammarFile = os.path.abspath(grammarFile)
     
+    with open(grammarFile, 'r') as grammarFile:
+        grammar = json.load(grammarFile)
+    
+    #
+    # working on the definition file
+    #
     print("definition file: " + defFile)
     with open(defFile ,"r") as f:
         defTemplate = f.read()
-    
-    #replace all the tags with the right values
-    classDefinition = replace_tags(project, gClass, defTemplate)
-    
-    #print (classDefinition)
+        
+    #shared find/replace
+    for key, value in grammar["shared"].items():    
+        defTemplate = defTemplate.replace(key, value)
+
+    #definition find/replace
+    for key, value in grammar["definition"].items():    
+        defTemplate = defTemplate.replace(key, value)
     
     #print the result to file
     extension = project.language
@@ -71,6 +81,12 @@ def write_class(project, gClass):
     
     with open(defOutFile, "w") as f:
         f.write(classDefinition)
+    
+    #
+    # working on the implementation file
+    #
+    
+    #implementation find/replace
     
     return True
 
@@ -103,6 +119,7 @@ def replace_tags(project, gClass, template):
     grammar=""
     with open('../templates/grammar.json', 'r') as grammarFile:
         grammar = json.load(grammarFile)
+    
     
     for key, value in grammar.items():    
         template = template.replace(key, value)
