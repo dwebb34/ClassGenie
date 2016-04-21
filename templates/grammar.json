@@ -17,7 +17,9 @@
         "<copy-constructor>":"<class.name>(const <class.name>& rhs);",
         "<assignment-operator>":"<class.name>& operator=(const <class.name>& rhs);",
         "<equals-operator>":"<class.name>& operator==(const <class.name>& rhs);",
-        "<not-equals-operator>":"<class.name>& operator!=(const <class.name>& rhs);"
+        "<not-equals-operator>":"<class.name>& operator!=(const <class.name>& rhs);",
+        "<input-operator>":"friend std::istream& operator>>(std::istream& is, <class.name>& obj);",
+        "<output-operator>":"friend std::ostream& operator<<(std::ostream& os, const <class.name>& obj);"
     },
     "implmentation":{
         "namespace":"using namespace <namespace>",
@@ -25,15 +27,17 @@
             "<class.name>::<class.name>():<member-variables.default-value>{",
             "   <default-constructor.custom-code>",
             "}"
-            ],
+        ],
         "<default-destructor>":[
             "virtual <class.name>::~<class.name>(){",
             "   <default-destructor.custom-code>",
-            "}"],
+            "}"
+        ],
         "<copy-constructor>":[
             "<class.name>::<class.name>(const <class.name>& rhs){",
             "   <copy-constructor.custom-code>",
-            "}"],
+            "}"
+        ],
         "<assignment-operator>":[
             "<class.name>& <class.name>::operator=(const <class.name>& rhs){",
             "   <assignment-operator.custom-code>",
@@ -42,15 +46,14 @@
         "<equals-operator>":[
             "<class.name>& <class.name>::operator==(const <class.name>& rhs){",
             "   <equals-operator.custom-code>",
-            "}"],
+            "}"
+        ],
         "<not-equals-operator>":[
             "<class.name>& <class.name>::operator!=(const <class.name>& rhs){",
             "   <equals-operator.custom-code>",
-            "}"]
-    },
-
-    "<equals-operator>":"<class.name>& operator==(const <class.name>& rhs);",
-    "<not-equals-operator>":"<class.name>& operator!=(const <class.name>& rhs);",
-    "<output-operator>":""
-        
+            "}"
+        ],
+        "<input-operator>":"",
+        "<output-operator>":""
+    }
 }

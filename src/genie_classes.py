@@ -316,7 +316,7 @@ class GenClass:
     def name(self):
         return self.data_dictionary["name"]
     
-    @class_name.setter
+    @name.setter
     def name(self, newName):
         '''
         Sets the name of the GenClass. dictionary["name"] = name
@@ -411,7 +411,7 @@ class GenClass:
     def dependencies(self):
         return self.data_dictionary["dependencies"]
     
-    @class_dependencies.setter
+    @dependencies.setter
     def dependencies(self, depends):        
         #if param is already in the data_dictionary, don't put another one
         if depends not in self.data_dictionary["dependencies"]:
@@ -651,7 +651,7 @@ class GenClass:
         '''
         return self.data_dictionary["member-variables"]
     
-    @member_variable.setter
+    @member_variables.setter
     def member_variables(self, memVar):
         if isinstance(memVar, MemberVariable):
             self.data_dictionary["member-variables"][memVar["name"]] = memVar
@@ -831,9 +831,9 @@ class GenProject:
     def default_grammar_file(self):
         return self.data_dictionary["default-grammar-file"]
     
-    @defaulr_grammar_file.setter
+    @default_grammar_file.setter
     def default_grammar_file(self, gramFile):
-        self.data_dictionary["default-grammar-file"]
+        self.data_dictionary["default-grammar-file"] = gramFile
         return
     
     @property
@@ -897,13 +897,13 @@ class GenProject:
         if not newClass.implementation_template:
             newClass.implementation_template = self.default_implementation_template
             
-        if not newClass.class_namespace:
-            newClass.class_namespace = self.default_namespace
+        if not newClass.namespace:
+            newClass.namespace = self.default_namespace
             
         if not newClass.grammar_file:
             newClass.grammar_file = self.default_grammar_file
              
-        self.data_dictionary["classes"][newClass.class_name] = newClass.data_dictionary
+        self.data_dictionary["classes"][newClass.name] = newClass.data_dictionary
             
         return
     
